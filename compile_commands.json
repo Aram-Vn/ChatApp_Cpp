@@ -1,0 +1,62 @@
+[
+{
+  "directory": "/home/aram/dev/ChatApp_Cpp/build",
+  "command": "/usr/bin/clang++ -I/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/include -g -std=gnu++20 -o ChatApp/CMakeFiles/chatapp.dir/src/main.cpp.o -c /home/aram/dev/ChatApp_Cpp/ChatApp/src/main.cpp",
+  "file": "/home/aram/dev/ChatApp_Cpp/ChatApp/src/main.cpp",
+  "output": "ChatApp/CMakeFiles/chatapp.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/aram/dev/ChatApp_Cpp/build",
+  "command": "/usr/bin/clang -DHAS_FCNTL=1 -DHAS_GETADDRINFO=1 -DHAS_GETHOSTBYADDR_R=1 -DHAS_GETHOSTBYNAME_R=1 -DHAS_GETNAMEINFO=1 -DHAS_INET_NTOP=1 -DHAS_INET_PTON=1 -DHAS_MSGHDR_FLAGS=1 -DHAS_POLL=1 -DHAS_SOCKLEN_T=1 -I/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/include -g   -Wno-error -o enet/CMakeFiles/enet.dir/callbacks.c.o -c /home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/callbacks.c",
+  "file": "/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/callbacks.c",
+  "output": "enet/CMakeFiles/enet.dir/callbacks.c.o"
+},
+{
+  "directory": "/home/aram/dev/ChatApp_Cpp/build",
+  "command": "/usr/bin/clang -DHAS_FCNTL=1 -DHAS_GETADDRINFO=1 -DHAS_GETHOSTBYADDR_R=1 -DHAS_GETHOSTBYNAME_R=1 -DHAS_GETNAMEINFO=1 -DHAS_INET_NTOP=1 -DHAS_INET_PTON=1 -DHAS_MSGHDR_FLAGS=1 -DHAS_POLL=1 -DHAS_SOCKLEN_T=1 -I/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/include -g   -Wno-error -o enet/CMakeFiles/enet.dir/compress.c.o -c /home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/compress.c",
+  "file": "/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/compress.c",
+  "output": "enet/CMakeFiles/enet.dir/compress.c.o"
+},
+{
+  "directory": "/home/aram/dev/ChatApp_Cpp/build",
+  "command": "/usr/bin/clang -DHAS_FCNTL=1 -DHAS_GETADDRINFO=1 -DHAS_GETHOSTBYADDR_R=1 -DHAS_GETHOSTBYNAME_R=1 -DHAS_GETNAMEINFO=1 -DHAS_INET_NTOP=1 -DHAS_INET_PTON=1 -DHAS_MSGHDR_FLAGS=1 -DHAS_POLL=1 -DHAS_SOCKLEN_T=1 -I/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/include -g   -Wno-error -o enet/CMakeFiles/enet.dir/host.c.o -c /home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/host.c",
+  "file": "/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/host.c",
+  "output": "enet/CMakeFiles/enet.dir/host.c.o"
+},
+{
+  "directory": "/home/aram/dev/ChatApp_Cpp/build",
+  "command": "/usr/bin/clang -DHAS_FCNTL=1 -DHAS_GETADDRINFO=1 -DHAS_GETHOSTBYADDR_R=1 -DHAS_GETHOSTBYNAME_R=1 -DHAS_GETNAMEINFO=1 -DHAS_INET_NTOP=1 -DHAS_INET_PTON=1 -DHAS_MSGHDR_FLAGS=1 -DHAS_POLL=1 -DHAS_SOCKLEN_T=1 -I/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/include -g   -Wno-error -o enet/CMakeFiles/enet.dir/list.c.o -c /home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/list.c",
+  "file": "/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/list.c",
+  "output": "enet/CMakeFiles/enet.dir/list.c.o"
+},
+{
+  "directory": "/home/aram/dev/ChatApp_Cpp/build",
+  "command": "/usr/bin/clang -DHAS_FCNTL=1 -DHAS_GETADDRINFO=1 -DHAS_GETHOSTBYADDR_R=1 -DHAS_GETHOSTBYNAME_R=1 -DHAS_GETNAMEINFO=1 -DHAS_INET_NTOP=1 -DHAS_INET_PTON=1 -DHAS_MSGHDR_FLAGS=1 -DHAS_POLL=1 -DHAS_SOCKLEN_T=1 -I/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/include -g   -Wno-error -o enet/CMakeFiles/enet.dir/packet.c.o -c /home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/packet.c",
+  "file": "/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/packet.c",
+  "output": "enet/CMakeFiles/enet.dir/packet.c.o"
+},
+{
+  "directory": "/home/aram/dev/ChatApp_Cpp/build",
+  "command": "/usr/bin/clang -DHAS_FCNTL=1 -DHAS_GETADDRINFO=1 -DHAS_GETHOSTBYADDR_R=1 -DHAS_GETHOSTBYNAME_R=1 -DHAS_GETNAMEINFO=1 -DHAS_INET_NTOP=1 -DHAS_INET_PTON=1 -DHAS_MSGHDR_FLAGS=1 -DHAS_POLL=1 -DHAS_SOCKLEN_T=1 -I/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/include -g   -Wno-error -o enet/CMakeFiles/enet.dir/peer.c.o -c /home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/peer.c",
+  "file": "/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/peer.c",
+  "output": "enet/CMakeFiles/enet.dir/peer.c.o"
+},
+{
+  "directory": "/home/aram/dev/ChatApp_Cpp/build",
+  "command": "/usr/bin/clang -DHAS_FCNTL=1 -DHAS_GETADDRINFO=1 -DHAS_GETHOSTBYADDR_R=1 -DHAS_GETHOSTBYNAME_R=1 -DHAS_GETNAMEINFO=1 -DHAS_INET_NTOP=1 -DHAS_INET_PTON=1 -DHAS_MSGHDR_FLAGS=1 -DHAS_POLL=1 -DHAS_SOCKLEN_T=1 -I/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/include -g   -Wno-error -o enet/CMakeFiles/enet.dir/protocol.c.o -c /home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/protocol.c",
+  "file": "/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/protocol.c",
+  "output": "enet/CMakeFiles/enet.dir/protocol.c.o"
+},
+{
+  "directory": "/home/aram/dev/ChatApp_Cpp/build",
+  "command": "/usr/bin/clang -DHAS_FCNTL=1 -DHAS_GETADDRINFO=1 -DHAS_GETHOSTBYADDR_R=1 -DHAS_GETHOSTBYNAME_R=1 -DHAS_GETNAMEINFO=1 -DHAS_INET_NTOP=1 -DHAS_INET_PTON=1 -DHAS_MSGHDR_FLAGS=1 -DHAS_POLL=1 -DHAS_SOCKLEN_T=1 -I/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/include -g   -Wno-error -o enet/CMakeFiles/enet.dir/unix.c.o -c /home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/unix.c",
+  "file": "/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/unix.c",
+  "output": "enet/CMakeFiles/enet.dir/unix.c.o"
+},
+{
+  "directory": "/home/aram/dev/ChatApp_Cpp/build",
+  "command": "/usr/bin/clang -DHAS_FCNTL=1 -DHAS_GETADDRINFO=1 -DHAS_GETHOSTBYADDR_R=1 -DHAS_GETHOSTBYNAME_R=1 -DHAS_GETNAMEINFO=1 -DHAS_INET_NTOP=1 -DHAS_INET_PTON=1 -DHAS_MSGHDR_FLAGS=1 -DHAS_POLL=1 -DHAS_SOCKLEN_T=1 -I/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/include -g   -Wno-error -o enet/CMakeFiles/enet.dir/win32.c.o -c /home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/win32.c",
+  "file": "/home/aram/dev/ChatApp_Cpp/ChatApp/vendor/enet/win32.c",
+  "output": "enet/CMakeFiles/enet.dir/win32.c.o"
+}
+]
