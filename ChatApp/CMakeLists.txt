@@ -4,5 +4,9 @@
 file(GLOB_RECURSE CHATAPP_SOURCES "src/*.cpp")
 file(GLOB_RECURSE CHATAPP_HEADERS "src/*.h")
 
+add_subdirectory("vendor/enet" "${CMAKE_BINARY_DIR}/enet")
 
 add_executable(chatapp ${CHATAPP_SOURCES} ${CHATAPP_HEADERS})
+
+target_link_libraries(chatapp enet)
+target_include_directories(chatapp PRIVATE "vendor/enet/include/")
