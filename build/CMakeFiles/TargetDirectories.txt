@@ -1,5 +1,0 @@
-/home/aram/dev/ChatApp/build/CMakeFiles/edit_cache.dir
-/home/aram/dev/ChatApp/build/CMakeFiles/rebuild_cache.dir
-/home/aram/dev/ChatApp/build/ChatApp/CMakeFiles/chatapp.dir
-/home/aram/dev/ChatApp/build/ChatApp/CMakeFiles/edit_cache.dir
-/home/aram/dev/ChatApp/build/ChatApp/CMakeFiles/rebuild_cache.dir
