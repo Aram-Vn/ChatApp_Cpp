@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/aram/dev/ChatApp/build",
+  "command": "/usr/bin/clang++ -g -std=gnu++20 -o ChatApp/CMakeFiles/chatapp.dir/src/main.cpp.o -c /home/aram/dev/ChatApp/ChatApp/src/main.cpp",
+  "file": "/home/aram/dev/ChatApp/ChatApp/src/main.cpp",
+  "output": "ChatApp/CMakeFiles/chatapp.dir/src/main.cpp.o"
+}
+]
