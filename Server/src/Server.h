@@ -1,7 +1,9 @@
 #pragma once
 
+#include <Common.h>
+#include <Packet.h>
+
 #include "Client.h"
-#include "Common.h"
 
 namespace my {
     class Server
@@ -29,12 +31,12 @@ namespace my {
         ~Server() noexcept;
 
     public:
-        void Init(const std::uint16_t port) noexcept;
+        void Init(const std::uint16_t port);
         void Run() noexcept;
 
-    private:
-        void Event_OnClientConnect() noexcept;
-        void Event_OnClientDisconnect() noexcept;
-        void Event_OnReceive() noexcept;
+    protected:
+        virtual void Event_OnClientConnect()    = 0;
+        virtual void Event_OnClientDisconnect() = 0;
+        virtual void Event_OnReceive()          = 0;
     };
 } // namespace my

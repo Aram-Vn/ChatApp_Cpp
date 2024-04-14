@@ -24,7 +24,7 @@ namespace my {
         s_Instance = nullptr;
     }
 
-    void Server::Init(const std::uint16_t port) noexcept
+    void Server::Init(const std::uint16_t port)
     {
         m_EndPoint.host = ENET_HOST_ANY;
         m_EndPoint.port = port;
@@ -47,12 +47,5 @@ namespace my {
                 default: break;
             }
         }
-    }
-
-    void Server::Event_OnClientConnect() noexcept
-    {
-        Client client{ m_Event.peer };
-        std::cout << "[!]: A client has connect from " << client.GetIPv4() << ":" << client.GetPort() << " as "
-                  << client.GetNick() << std::endl;
     }
 } // namespace my
