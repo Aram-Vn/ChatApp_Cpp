@@ -1,5 +1,5 @@
 #ifndef INCLUDE_PACKET_H
-#define iINCLUDE_PACKET_H
+#define INCLUDE_PACKET_H
 
 #include "Common.h"
 
