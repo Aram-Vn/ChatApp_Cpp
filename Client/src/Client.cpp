@@ -1,4 +1,6 @@
 #include "Client.h"
+#include "enet/enet.h"
+#include <stdexcept>
 
 namespace my {
     Client::Client()
@@ -30,9 +32,12 @@ namespace my {
         if (enet_address_set_host_ip(&addr, m_Ip.c_str()) < 0)
             return false;
 
-        m_ServerPeer = enet_host_connect(m_Client, &addr, DEFAULT_CHANNEL_COUNT, 0);
+        auto* peer = enet_host_connect(m_Client, &addr, DEFAULT_CHANNEL_COUNT, 0);
+        if (!peer)
+            return false;
 
-        return true;
+        Update();
+        return IsConnected();
     }
 
     void Client::Disconnect() noexcept
@@ -40,17 +45,20 @@ namespace my {
         using namespace std::chrono_literals;
         using clock = std::chrono::high_resolution_clock;
 
-        enet_peer_disconnect(m_ServerPeer, 0);
-
-        const auto tp1 = clock::now();
-        while (m_ServerPeer.load() != nullptr)
+        if (IsConnected())
         {
-            const auto tp2 = clock::now();
-            if (std::chrono::duration_cast<std::chrono::milliseconds>(tp2 - tp1).count() >
-                Client::DEFAULT_CLIENT_TIMEOUT)
+            enet_peer_disconnect(m_ServerPeer, 0);
+
+            const auto tp1 = clock::now();
+            while (m_ServerPeer.load() != nullptr)
             {
-                enet_peer_reset(m_ServerPeer.load());
-                m_ServerPeer.store(nullptr);
+                const auto tp2 = clock::now();
+                if (std::chrono::duration_cast<std::chrono::milliseconds>(tp2 - tp1).count() >
+                    Client::DEFAULT_CLIENT_TIMEOUT)
+                {
+                    enet_peer_reset(m_ServerPeer.load());
+                    m_ServerPeer.store(nullptr);
+                }
             }
         }
     }

@@ -13,7 +13,7 @@ namespace my {
         std::string m_Nick;
 
     public:
-        Client(ENetPeer* peer) noexcept;
+        Client(ENetPeer* peer, const std::string_view name) noexcept;
 
     public:
         inline const std::string_view GetNick() const noexcept
@@ -31,6 +31,12 @@ namespace my {
         inline std::uint16_t GetPort() const noexcept
         {
             return m_Address.port;
+        }
+
+    public:
+        explicit operator ENetAddress()
+        {
+            return m_Address;
         }
     };
 } // namespace my

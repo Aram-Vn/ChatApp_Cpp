@@ -1,6 +1,8 @@
 #include <iostream>
+#include <string>
 
 #include "Client.h"
+#include "Packet.h"
 
 class ChatClient : public my::Client
 {
@@ -28,12 +30,17 @@ int main(const int argc, const char* argv[])
     }
 
     std::string   ip;
+    std::string   nick;
     std::uint16_t port;
 
     std::cout << "IP: ";
     std::getline(std::cin, ip);
-    std::cout << "Port";
+    std::cout << "Port: ";
     std::cin >> port;
+    std::cin.get();
+    std::cout << "Nick: ";
+    std::getline(std::cin, nick);
+    std::cout << std::endl;
 
     ChatClient client;
     if (client.Connect(ip, port, 5000))
@@ -43,9 +50,18 @@ int main(const int argc, const char* argv[])
             {
                 while (client.IsConnected())
                 {
+                    std::cout << ">>> ";
                     std::string str;
                     std::getline(std::cin, str);
-                    client.Send(my::DataPacket{ .buffer = (std::uint8_t*)str.data(), .len = str.size() });
+                    if (str.starts_with("/exit"))
+                    {
+                        client.Disconnect();
+                    }
+                    else
+                    {
+                        my::DataPacket packet{ .buffer = (std::uint8_t*)str.data(), .len = str.size() };
+                        client.Send(packet);
+                    }
                 }
             })
             .detach();
@@ -54,7 +70,7 @@ int main(const int argc, const char* argv[])
             client.Update();
     }
     else
-        std::cerr << "Failed to connect to the server." << std::endl;
+        std::cerr << "[!]: Failed to connect to the server." << std::endl;
 
     enet_deinitialize();
     return 0;

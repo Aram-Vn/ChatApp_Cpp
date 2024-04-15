@@ -7,7 +7,8 @@ namespace my {
     class Client
     {
     public:
-        static constexpr auto DEFAULT_CLIENT_TIMEOUT = 1000;
+        static constexpr auto DEFAULT_CLIENT_TIMEOUT     = 1000;
+        static constexpr auto DEFAULT_CONNECTION_TIMEOUT = 5000;
 
     private:
         ENetHost*              m_Client = nullptr;
@@ -33,8 +34,8 @@ namespace my {
         bool Send(DataPacket& packet) const noexcept;
 
     protected:
-        virtual void Event_OnReceive(const DataPacket& packet);
-        virtual void Event_OnConnect();
-        virtual void Event_OnDisconnect();
+        virtual void Event_OnReceive(const DataPacket& packet) = 0;
+        virtual void Event_OnConnect()                         = 0;
+        virtual void Event_OnDisconnect()                      = 0;
     };
 } // namespace my

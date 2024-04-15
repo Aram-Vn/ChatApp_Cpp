@@ -5,7 +5,9 @@
 #include <cstdint>
 #include <enet/enet.h>
 #include <exception>
+#include <forward_list>
 #include <iostream>
+#include <list>
 #include <memory>
 #include <mutex>
 #include <string_view>
