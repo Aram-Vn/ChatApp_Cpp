@@ -1,6 +1,1 @@
-[submodule "ChatApp/vendor/enet"]
-	path = ChatApp/vendor/enet
-	url = git@github.com:lsalzman/enet.git
-[submodule "vendor/enet"]
-	path = vendor/enet
-	url = git@github.com:lsalzman/enet.git
+
