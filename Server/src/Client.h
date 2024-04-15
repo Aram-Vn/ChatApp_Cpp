@@ -28,6 +28,14 @@ namespace my {
             std::string str(buffer.get());
             return str;
         }
+        inline ENetPeer* GetPeer() noexcept
+        {
+            return m_Peer;
+        }
+        inline ENetPeer* GetPeer() const noexcept
+        {
+            return m_Peer;
+        }
 
         inline std::uint16_t GetPort() const noexcept
         {
@@ -35,9 +43,15 @@ namespace my {
         }
 
     public:
-        explicit operator ENetAddress()
+        explicit operator ENetAddress() const
         {
             return m_Address;
+        }
+
+    public:
+        friend bool operator==(const Client& lhv, const Client& rhv) noexcept
+        {
+            return lhv.m_Address.host == rhv.m_Address.host && lhv.m_Address.port == rhv.m_Address.port;
         }
     };
 } // namespace my

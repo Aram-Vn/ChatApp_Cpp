@@ -24,6 +24,12 @@ namespace my {
         Server() noexcept {};
         ~Server() noexcept;
 
+    protected:
+        const std::list<Client>& GetConnectedClients() const noexcept
+        {
+            return m_ConnectedClients;
+        }
+
     public:
         inline bool IsRunning() const noexcept
         {
@@ -34,8 +40,8 @@ namespace my {
         bool Init(const std::uint16_t port) noexcept;
         void Update();
 
-    private:
-        void ClientHandler(const Client& client);
+    protected:
+        bool Send(const Client& client, DataPacket& packet);
 
     protected:
         virtual void Event_OnInit()                                                  = 0;

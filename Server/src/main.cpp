@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "Packet.h"
 #include "Server.h"
 
 class ChatServer : public my::Server
@@ -21,11 +22,25 @@ private:
         std::cout << "[!]: " << client.GetNick() << " (" << client.GetIPv4() << ":" << client.GetPort()
                   << ") disconnected." << std::endl;
     }
-    
+
     void Event_OnReceive(const my::Client& client, const my::DataPacket& packet) override
     {
-        std::cout << "[" << client.GetNick() << client.GetPort()
-                  << "]: " << std::string{ (const char*)packet.buffer, packet.len } << std::endl;
+        std::stringstream ss;
+        ss << "[" << client.GetNick() << client.GetPort()
+           << "]: " << std::string{ (const char*)packet.buffer, packet.len } << std::endl;
+
+        std::string str = ss.str();
+        std::cout << str << std::endl;
+
+        auto send_packet = my::DataPacket{ .buffer = (std::uint8_t*)str.c_str(), .len = str.size() + 1 };
+
+        for (const auto& e : GetConnectedClients())
+        {
+            if (e != client)
+            {
+                this->Send(e, send_packet);
+            }
+        }
     }
 };
 
@@ -39,7 +54,7 @@ int main(const int argc, const char* argv[])
 
     ChatServer server;
     server.Init(7777);
-    
+
     while (server.IsRunning())
     {
         server.Update();

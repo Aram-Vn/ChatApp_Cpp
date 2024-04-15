@@ -80,4 +80,13 @@ namespace my {
         }
     }
 
+    bool Server::Send(const Client& client, DataPacket& packet)
+    {
+        if (client.GetPeer())
+        {
+            ENetPacket* enet_packet = enet_packet_create(packet.buffer, packet.len, ENET_PACKET_FLAG_RELIABLE);
+            return enet_peer_send(client.GetPeer(), 0, enet_packet) == 0;
+        }
+        return false;
+    }
 } // namespace my

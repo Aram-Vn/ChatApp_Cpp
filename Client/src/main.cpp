@@ -19,7 +19,7 @@ protected:
 
     void Event_OnReceive(const my::DataPacket& data) override
     {
-        std::cout << "[!]: Server: " << std::string((char*)data.buffer, data.len) << std::endl;
+        std::cout << std::endl << std::string((char*)data.buffer, data.len) << std::endl;
     }
 };
 
@@ -77,7 +77,7 @@ int main(const int argc, const char* argv[])
     {
         std::cerr << "[!]: Failed to connect to the server." << std::endl;
     }
-    
+
     enet_deinitialize();
     return 0;
 }
