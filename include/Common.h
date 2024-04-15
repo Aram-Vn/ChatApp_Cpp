@@ -10,6 +10,7 @@
 #include <list>
 #include <memory>
 #include <mutex>
+#include <sstream>
 #include <string_view>
 #include <thread>
 #include <vector>
