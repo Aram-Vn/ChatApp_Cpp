@@ -9,7 +9,9 @@ namespace my {
 
         m_Client = enet_host_create(nullptr, 1, 1, 0, 0);
         if (!m_Client)
+        {
             throw std::runtime_error("Clould not create client host.");
+        }
     }
 
     Client::~Client() noexcept
@@ -30,11 +32,16 @@ namespace my {
         addr.port = m_Port;
 
         if (enet_address_set_host_ip(&addr, m_Ip.c_str()) < 0)
+        {
             return false;
+        }
 
         auto* peer = enet_host_connect(m_Client, &addr, DEFAULT_CHANNEL_COUNT, 0);
+
         if (!peer)
+        {
             return false;
+        }
 
         Update();
         return IsConnected();
@@ -91,7 +98,9 @@ namespace my {
             }
         }
         else
+        {
             throw std::runtime_error("Client is offline.");
+        }
     }
 
     bool Client::Send(DataPacket& packet) const noexcept

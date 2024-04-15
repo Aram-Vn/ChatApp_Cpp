@@ -28,6 +28,7 @@ namespace my {
             std::string str(buffer.get());
             return str;
         }
+
         inline std::uint16_t GetPort() const noexcept
         {
             return m_Address.port;

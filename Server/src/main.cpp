@@ -9,16 +9,19 @@ private:
     {
         std::cout << "[!]: Waiting for a connection..." << std::endl;
     }
+
     void Event_OnClientConnect(const my::Client& client) override
     {
         std::cout << "[!]: Client connected from: '" << client.GetIPv4() << ":" << client.GetPort() << "' as "
                   << client.GetNick() << std::endl;
     }
+
     void Event_OnClientDisconnect(const my::Client& client) override
     {
         std::cout << "[!]: " << client.GetNick() << " (" << client.GetIPv4() << ":" << client.GetPort()
                   << ") disconnected." << std::endl;
     }
+    
     void Event_OnReceive(const my::Client& client, const my::DataPacket& packet) override
     {
         std::cout << "[" << client.GetNick() << client.GetPort()
@@ -36,6 +39,7 @@ int main(const int argc, const char* argv[])
 
     ChatServer server;
     server.Init(7777);
+    
     while (server.IsRunning())
     {
         server.Update();

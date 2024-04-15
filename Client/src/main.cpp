@@ -11,10 +11,12 @@ protected:
     {
         std::cout << "[!]: Connected to the server." << std::endl;
     }
+
     void Event_OnDisconnect() override
     {
         std::cout << "[!]: Disconnected from the server." << std::endl;
     }
+
     void Event_OnReceive(const my::DataPacket& data) override
     {
         std::cout << "[!]: Server: " << std::string((char*)data.buffer, data.len) << std::endl;
@@ -67,11 +69,15 @@ int main(const int argc, const char* argv[])
             .detach();
 
         while (client.IsConnected())
+        {
             client.Update();
+        }
     }
     else
+    {
         std::cerr << "[!]: Failed to connect to the server." << std::endl;
-
+    }
+    
     enet_deinitialize();
     return 0;
 }

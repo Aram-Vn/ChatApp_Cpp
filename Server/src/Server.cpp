@@ -13,7 +13,9 @@ namespace my {
     {
         m_Running = false;
         if (m_Host)
+        {
             enet_host_destroy(m_Host);
+        }
     }
 
     bool Server::Init(const std::uint16_t port) noexcept
@@ -52,7 +54,9 @@ namespace my {
                         m_ConnectedClients.erase(it);
                     }
                     else
+                    {
                         throw std::runtime_error("VERY BAD!!! abort abort");
+                    }
                     break;
                 }
                 case ENET_EVENT_TYPE_RECEIVE: {
@@ -65,7 +69,10 @@ namespace my {
                             *it, DataPacket{ .buffer = m_Event.packet->data, .len = m_Event.packet->dataLength });
                     }
                     else
+                    {
                         throw std::runtime_error("Somewhere something went wrong.");
+                    }
+
                     break;
                 }
                 default: break;
