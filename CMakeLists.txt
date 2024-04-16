@@ -8,8 +8,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 set(VENDOR_DIR "${CMAKE_SOURCE_DIR}/vendor")
 set(COMMON_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
 
-# If we're not on VS, then copy compile_commands.json for LSPs like clangd and
-# ccls.
+
 if(NOT CMAKE_GENERATOR MATCHES "Visual Studio")
   add_custom_command(
     OUTPUT ${CMAKE_SOURCE_DIR}/compile_commands.json
@@ -22,7 +21,7 @@ if(NOT CMAKE_GENERATOR MATCHES "Visual Studio")
                     DEPENDS ${CMAKE_SOURCE_DIR}/compile_commands.json)
 endif()
 
-# Link enet.
+
 add_subdirectory("${VENDOR_DIR}/enet" "${CMAKE_BINARY_DIR}/enet")
 
 add_subdirectory("Server")

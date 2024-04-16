@@ -4,7 +4,7 @@ project("Client")
 
 # Fetch all the source and header files and the then add them automatically
 file(GLOB_RECURSE CHATAPP_SOURCES "src/*.cpp")
-file(GLOB_RECURSE CHATAPP_HEADERS "src/*.h")
+file(GLOB_RECURSE CHATAPP_HEADERS "headers/*.h")
 
 add_executable(chatclient ${CHATAPP_SOURCES} ${CHATAPP_HEADERS})
 

@@ -11,7 +11,7 @@ namespace my {
     public:
         static constexpr auto MAX_CLIENT_COUNT  = 16;
         static constexpr auto MAX_CHANNEL_COUNT = 1;
-        static constexpr auto DEFAULT_TIMEOUT   = 5000;
+        static constexpr auto DEFAULT_TIMEOUT   = 1000;
 
     private:
         ENetHost*         m_Host = nullptr;

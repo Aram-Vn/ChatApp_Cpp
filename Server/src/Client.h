@@ -20,7 +20,13 @@ namespace my {
         {
             return m_Nick;
         }
-        inline std::string GetIPv4() const noexcept
+
+        void SetNickname(std::string enteredNickname)
+        {
+            m_Nick = enteredNickname;
+        }
+
+            inline std::string GetIPv4() const noexcept
         {
             const auto              size   = 128;
             std::unique_ptr<char[]> buffer = std::make_unique<char[]>(size);
@@ -28,10 +34,12 @@ namespace my {
             std::string str(buffer.get());
             return str;
         }
+
         inline ENetPeer* GetPeer() noexcept
         {
             return m_Peer;
         }
+
         inline ENetPeer* GetPeer() const noexcept
         {
             return m_Peer;

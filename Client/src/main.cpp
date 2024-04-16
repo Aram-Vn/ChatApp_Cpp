@@ -1,33 +1,16 @@
 #include <iostream>
 #include <string>
 
-#include "Client.h"
+#include "../headers/ChatClient.h"
 #include "Packet.h"
 
-class ChatClient : public my::Client
-{
-protected:
-    void Event_OnConnect() override
-    {
-        std::cout << "[!]: Connected to the server." << std::endl;
-    }
 
-    void Event_OnDisconnect() override
-    {
-        std::cout << "[!]: Disconnected from the server." << std::endl;
-    }
-
-    void Event_OnReceive(const my::DataPacket& data) override
-    {
-        std::cout << std::endl << std::string((char*)data.buffer, data.len) << std::endl;
-    }
-};
 
 int main(const int argc, const char* argv[])
 {
     if (enet_initialize() != 0)
     {
-        fprintf(stderr, "An error occurred while initializing ENet.\n");
+        std::cerr << "An error occurred while initializing ENet." << std::endl;
         return EXIT_FAILURE;
     }
 
@@ -37,14 +20,17 @@ int main(const int argc, const char* argv[])
 
     std::cout << "IP: ";
     std::getline(std::cin, ip);
+    
     std::cout << "Port: ";
     std::cin >> port;
     std::cin.get();
-    std::cout << "Nick: ";
-    std::getline(std::cin, nick);
+
+    // std::cout << "Nick: ";
+    // std::getline(std::cin, nick);
     std::cout << std::endl;
 
     ChatClient client;
+    
     if (client.Connect(ip, port, 5000))
     {
         std::thread(

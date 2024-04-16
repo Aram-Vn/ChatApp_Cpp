@@ -40,7 +40,16 @@ namespace my {
             switch (m_Event.type)
             {
                 case ENET_EVENT_TYPE_CONNECT: {
-                    m_ConnectedClients.emplace_front(m_Event.peer, "Bob");
+                    std::string promptMessage = "Please enter your Nick";
+
+                    m_ConnectedClients.emplace_front(m_Event.peer, "");
+
+                    DataPacket promptPacket;
+                    promptPacket.buffer =
+                        const_cast<std::uint8_t*>(reinterpret_cast<const uint8_t*>(promptMessage.c_str()));
+                    promptPacket.len = promptMessage.length() + 1;
+                    Send(m_ConnectedClients.front(), promptPacket);
+
                     Event_OnClientConnect(m_ConnectedClients.front());
                     break;
                 }
@@ -65,12 +74,20 @@ namespace my {
 
                     if (it != m_ConnectedClients.end())
                     {
+                        std::string enteredNickname(reinterpret_cast<char*>(m_Event.packet->data));
+
+                        if (it->GetNick() == "")
+                        {
+                            it->SetNickname(enteredNickname);
+                            break;
+                        }
+
                         Event_OnReceive(
                             *it, DataPacket{ .buffer = m_Event.packet->data, .len = m_Event.packet->dataLength });
                     }
                     else
                     {
-                        throw std::runtime_error("Somewhere something went wrong.");
+                        throw std::runtime_error("Somewhere something went wrong//ENET_EVENT_TYPE_RECEIVE.");
                     }
 
                     break;

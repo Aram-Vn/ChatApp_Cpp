@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CLIENT_H
+#define CLIENT_H
 
 #include <Common.h>
 #include <Packet.h>
@@ -39,3 +40,5 @@ namespace my {
         virtual void Event_OnDisconnect()                      = 0;
     };
 } // namespace my
+
+#endif // CLIENT_H
