@@ -1,4 +1,4 @@
-#include "Client.h"
+#include "../headers/Client.h"
 
 namespace my {
     Client::Client(ENetPeer* peer, const std::string_view name) noexcept
@@ -6,5 +6,48 @@ namespace my {
           m_Peer(peer),
           m_Nick(name)
     {
+    }
+
+    const std::string_view Client::GetNick() const noexcept
+    {
+        return m_Nick;
+    }
+
+    void Client::SetNickname(std::string enteredNickname)
+    {
+        m_Nick = std::move(enteredNickname);
+    }
+
+    std::string Client::GetIPv4() const noexcept
+    {
+        const auto              size   = 128;
+        std::unique_ptr<char[]> buffer = std::make_unique<char[]>(size);
+        enet_address_get_host_ip(&m_Address, buffer.get(), size);
+        return std::string(buffer.get());
+    }
+
+    ENetPeer* Client::GetPeer() noexcept
+    {
+        return m_Peer;
+    }
+
+    ENetPeer* Client::GetPeer() const noexcept
+    {
+        return m_Peer;
+    }
+
+    std::uint16_t Client::GetPort() const noexcept
+    {
+        return m_Address.port;
+    }
+
+    Client::operator ENetAddress() const
+    {
+        return m_Address;
+    }
+
+    bool operator==(const Client& lhv, const Client& rhv) noexcept
+    {
+        return lhv.m_Address.host == rhv.m_Address.host && lhv.m_Address.port == rhv.m_Address.port;
     }
 } // namespace my

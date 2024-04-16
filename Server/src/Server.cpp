@@ -1,4 +1,4 @@
-#include "Server.h"
+#include "../headers/Server.h"
 #include "Packet.h"
 #include "enet/enet.h"
 #include <stdexcept>
@@ -7,6 +7,16 @@ namespace my {
     static bool operator==(const ENetAddress& lhv, const ENetAddress& rhv) noexcept
     {
         return lhv.host == rhv.host && lhv.port == rhv.port;
+    }
+
+    bool Server::IsRunning() const noexcept
+    {
+        return m_Running;
+    }
+
+    const std::list<Client>& Server::GetConnectedClients() const noexcept
+    {
+        return m_ConnectedClients;
     }
 
     Server::~Server() noexcept
