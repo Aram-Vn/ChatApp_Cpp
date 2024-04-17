@@ -5,15 +5,15 @@
 #include <memory>
 
 namespace my {
-    class Client
+    class ServerClient
     {
     public: // ctors
        
-        explicit Client(ENetPeer* peer) noexcept;
+        explicit ServerClient(ENetPeer* peer) noexcept;
 
     public: // operators
         explicit    operator ENetAddress() const;
-        friend bool operator==(const Client& lhv, const Client& rhv) noexcept;
+        friend bool operator==(const ServerClient& lhv, const ServerClient& rhv) noexcept;
 
     public:                                
         std::string   GetIPv4() const noexcept; //

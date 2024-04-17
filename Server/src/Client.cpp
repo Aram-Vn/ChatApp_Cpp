@@ -1,13 +1,13 @@
-#include "../headers/Client.h"
+#include "../headers/ServerClient.h"
 
 namespace my {
-    Client::Client(ENetPeer* peer) noexcept
+    ServerClient::ServerClient(ENetPeer* peer) noexcept
         : m_Address(peer->address),
           m_Peer(peer)
     {
     }
 
-    std::string Client::GetIPv4() const noexcept
+    std::string ServerClient::GetIPv4() const noexcept
     {
         const auto              size   = 128;
         std::unique_ptr<char[]> buffer = std::make_unique<char[]>(size);
@@ -15,27 +15,27 @@ namespace my {
         return std::string(buffer.get());
     }
 
-    ENetPeer* Client::GetPeer() noexcept
+    ENetPeer* ServerClient::GetPeer() noexcept
     {
         return m_Peer;
     }
 
-    ENetPeer* Client::GetPeer() const noexcept
+    ENetPeer* ServerClient::GetPeer() const noexcept
     {
         return m_Peer;
     }
 
-    std::uint16_t Client::GetPort() const noexcept
+    std::uint16_t ServerClient::GetPort() const noexcept
     {
         return m_Address.port;
     }
 
-    Client::operator ENetAddress() const
+    ServerClient::operator ENetAddress() const
     {
         return m_Address;
     }
 
-    bool operator==(const Client& lhv, const Client& rhv) noexcept
+    bool operator==(const ServerClient& lhv, const ServerClient& rhv) noexcept
     {
         return lhv.m_Address.host == rhv.m_Address.host && lhv.m_Address.port == rhv.m_Address.port;
     }

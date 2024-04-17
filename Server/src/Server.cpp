@@ -14,7 +14,7 @@ namespace my {
         return m_Running;
     }
 
-    const std::list<Client>& Server::GetConnectedClients() const noexcept
+    const std::list<ServerClient>& Server::GetConnectedClients() const noexcept
     {
         return m_ConnectedClients;
     }
@@ -50,7 +50,7 @@ namespace my {
             switch (m_Event.type)
             {
                 case ENET_EVENT_TYPE_CONNECT: {
-                    m_ConnectedClients.emplace_front(Client{m_Event.peer});
+                    m_ConnectedClients.emplace_front(ServerClient{m_Event.peer});
                     Event_OnClientConnect(m_ConnectedClients.front());
                     break;
                 }
@@ -90,7 +90,7 @@ namespace my {
         }
     }
 
-    bool Server::Send(const Client& client, DataPacket& packet)
+    bool Server::Send(const ServerClient& client, DataPacket& packet)
     {
         if (client.GetPeer())
         {

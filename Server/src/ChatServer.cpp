@@ -3,7 +3,7 @@
 #include <iostream>
 #include <sstream>
 
-std::vector<ConnectedChatClient>::iterator ChatServer::GetClient(const my::Client& client) noexcept
+std::vector<ChatClient>::iterator ChatServer::GetClient(const my::ServerClient& client) noexcept
 {
     return std::find_if(m_Clients.begin(), m_Clients.end(), [&client](auto& e) { return *e.client == client; });
 }
@@ -13,14 +13,14 @@ void ChatServer::Event_OnInit()
     std::cout << "[!]: Waiting for a connection..." << std::endl;
 }
 
-void ChatServer::Event_OnClientConnect(const my::Client& client)
+void ChatServer::Event_OnClientConnect(const my::ServerClient& client)
 {
-    m_Clients.emplace_back(ConnectedChatClient{ .name = std::nullopt, .client = &client });
+    m_Clients.emplace_back(ChatClient{ .name = std::nullopt, .client = &client });
 
-    std::cout << "[!]: Client connected from: '" << client.GetIPv4() << ":" << client.GetPort() << "'." << std::endl;
+    std::cout << "[!]: ServerClient connected from: '" << client.GetIPv4() << ":" << client.GetPort() << "'." << std::endl;
 }
 
-void ChatServer::Event_OnClientDisconnect(const my::Client& client)
+void ChatServer::Event_OnClientDisconnect(const my::ServerClient& client)
 {
     auto it = GetClient(client);
 
@@ -37,7 +37,7 @@ void ChatServer::Event_OnClientDisconnect(const my::Client& client)
     m_Clients.erase(it);
 }
 
-void ChatServer::Event_OnReceive(const my::Client& client, const my::DataPacket& packet)
+void ChatServer::Event_OnReceive(const my::ServerClient& client, const my::DataPacket& packet)
 {
     auto it = GetClient(client);
 
