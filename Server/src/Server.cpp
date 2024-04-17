@@ -50,16 +50,7 @@ namespace my {
             switch (m_Event.type)
             {
                 case ENET_EVENT_TYPE_CONNECT: {
-                    std::string promptMessage = "Please enter your Nick";
-
-                    m_ConnectedClients.emplace_front(m_Event.peer, "");
-
-                    DataPacket promptPacket;
-                    promptPacket.buffer =
-                        const_cast<std::uint8_t*>(reinterpret_cast<const uint8_t*>(promptMessage.c_str()));
-                    promptPacket.len = promptMessage.length() + 1;
-                    Send(m_ConnectedClients.front(), promptPacket);
-
+                    m_ConnectedClients.emplace_front(m_Event.peer);
                     Event_OnClientConnect(m_ConnectedClients.front());
                     break;
                 }
@@ -84,20 +75,12 @@ namespace my {
 
                     if (it != m_ConnectedClients.end())
                     {
-                        std::string enteredNickname(reinterpret_cast<char*>(m_Event.packet->data));
-
-                        if (it->GetNick() == "")
-                        {
-                            it->SetNickname(enteredNickname);
-                            break;
-                        }
-
                         Event_OnReceive(
                             *it, DataPacket{ .buffer = m_Event.packet->data, .len = m_Event.packet->dataLength });
                     }
                     else
                     {
-                        throw std::runtime_error("Somewhere something went wrong//ENET_EVENT_TYPE_RECEIVE.");
+                        throw std::runtime_error("Somewhere something went wrong.");
                     }
 
                     break;
@@ -112,7 +95,17 @@ namespace my {
         if (client.GetPeer())
         {
             ENetPacket* enet_packet = enet_packet_create(packet.buffer, packet.len, ENET_PACKET_FLAG_RELIABLE);
-            return enet_peer_send(client.GetPeer(), 0, enet_packet) == 0;
+            const auto  result      = enet_peer_send(client.GetPeer(), 0, enet_packet);
+            if (result < 0)
+            {
+                // Send failed, dispose the packet and return false.
+                enet_packet_destroy(enet_packet);
+            }
+            else
+            {
+                // Send succeeded.
+                return true;
+            }
         }
         return false;
     }

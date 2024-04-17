@@ -25,8 +25,9 @@ namespace my {
 
     bool Client::Connect(const std::string_view ip, const std::uint16_t port, const std::uint16_t timeout) noexcept
     {
-        m_Ip   = ip;
-        m_Port = port;
+        m_Ip                = ip;
+        m_Port              = port;
+        m_ConnectionTimeout = timeout;
 
         ENetAddress addr;
         addr.port = m_Port;
@@ -37,14 +38,30 @@ namespace my {
         }
 
         auto* peer = enet_host_connect(m_Client, &addr, DEFAULT_CHANNEL_COUNT, 0);
-
         if (!peer)
         {
             return false;
         }
 
-        Update();
-        return IsConnected();
+        ENetEvent event;
+        if (enet_host_service(m_Client, &event, m_ConnectionTimeout) > 0 && event.type == ENET_EVENT_TYPE_CONNECT)
+        {
+            // Connection succeeded.
+            m_ServerPeer = event.peer;
+            Event_OnConnect();
+            return true;
+        }
+        else
+        {
+            // Connection failed.
+            enet_peer_reset(peer);
+            return false;
+        }
+    }
+
+    bool Client::IsConnected() const noexcept
+    {
+        return m_ServerPeer != nullptr;
     }
 
     void Client::Disconnect() noexcept
@@ -60,8 +77,7 @@ namespace my {
             while (m_ServerPeer.load() != nullptr)
             {
                 const auto tp2 = clock::now();
-                if (std::chrono::duration_cast<std::chrono::milliseconds>(tp2 - tp1).count() >
-                    Client::DEFAULT_CLIENT_TIMEOUT)
+                if (std::chrono::duration_cast<std::chrono::milliseconds>(tp2 - tp1).count() > m_ConnectionTimeout)
                 {
                     enet_peer_reset(m_ServerPeer.load());
                     m_ServerPeer.store(nullptr);
@@ -75,14 +91,10 @@ namespace my {
         if (m_Client)
         {
             ENetEvent event;
-            while (enet_host_service(m_Client, &event, Client::DEFAULT_CLIENT_TIMEOUT) > 0)
+            while (enet_host_service(m_Client, &event, Client::DEFAULT_CLIENT_RECEIVE_TIMEOUT) > 0)
             {
                 switch (event.type)
                 {
-                    case ENET_EVENT_TYPE_CONNECT:
-                        m_ServerPeer = event.peer;
-                        Event_OnConnect();
-                        break;
                     case ENET_EVENT_TYPE_DISCONNECT:
                         m_ServerPeer = nullptr;
                         Event_OnDisconnect();
@@ -94,6 +106,7 @@ namespace my {
                         enet_packet_destroy(event.packet);
                         break;
                     case ENET_EVENT_TYPE_NONE: break;
+                    default: break;
                 }
             }
         }
@@ -108,7 +121,17 @@ namespace my {
         if (m_Client)
         {
             ENetPacket* enet_packet = enet_packet_create(packet.buffer, packet.len, ENET_PACKET_FLAG_RELIABLE);
-            return enet_peer_send(m_ServerPeer, 0, enet_packet) == 0;
+            const auto  result      = enet_peer_send(m_ServerPeer, 0, enet_packet);
+            if (result < 0)
+            {
+                // Send failed, dispose the packet and return false.
+                enet_packet_destroy(enet_packet);
+            }
+            else
+            {
+                // Send succeeded.
+                return true;
+            }
         }
         return false;
     }

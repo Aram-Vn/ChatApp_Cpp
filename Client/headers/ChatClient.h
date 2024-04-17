@@ -6,13 +6,20 @@
 class ChatClient : public my::Client
 {
 public:
+    ChatClient(const std::string_view nick);
     ChatClient();
     ~ChatClient() = default;
+
+public:
+    bool SendString(const std::string_view string) const noexcept;
 
 protected:
     void Event_OnConnect() override;
     void Event_OnDisconnect() override;
     void Event_OnReceive(const my::DataPacket& data) override;
+
+private:
+    std::string m_Nick;
 };
 
 #endif // CHATCLIENT_H

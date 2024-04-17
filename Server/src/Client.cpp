@@ -1,21 +1,10 @@
 #include "../headers/Client.h"
 
 namespace my {
-    Client::Client(ENetPeer* peer, const std::string_view name) noexcept
+    Client::Client(ENetPeer* peer) noexcept
         : m_Address(peer->address),
-          m_Peer(peer),
-          m_Nick(name)
+          m_Peer(peer)
     {
-    }
-
-    const std::string_view Client::GetNick() const noexcept
-    {
-        return m_Nick;
-    }
-
-    void Client::SetNickname(std::string enteredNickname)
-    {
-        m_Nick = std::move(enteredNickname);
     }
 
     std::string Client::GetIPv4() const noexcept

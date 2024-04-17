@@ -11,20 +11,20 @@ namespace my {
     public:
         static constexpr auto MAX_CLIENT_COUNT  = 16;
         static constexpr auto MAX_CHANNEL_COUNT = 1;
-        static constexpr auto DEFAULT_TIMEOUT   = 1000;
+        static constexpr auto DEFAULT_TIMEOUT   = 5000;
 
     public:
-        Server() noexcept {};
-        ~Server() noexcept;
+        Server() noexcept {}; //
+        ~Server() noexcept;   //
 
     public:
-        bool Init(const std::uint16_t port) noexcept;
-        bool IsRunning() const noexcept;
-        void Update();
+        bool Init(const std::uint16_t port) noexcept; //
+        bool IsRunning() const noexcept;              //
+        void Update();                                //
 
     protected:
-        bool Send(const Client& client, DataPacket& packet);
-        const std::list<Client>& GetConnectedClients() const noexcept;
+        bool                     Send(const Client& client, DataPacket& packet); 
+        const std::list<Client>& GetConnectedClients() const noexcept; //
 
     protected:
         virtual void Event_OnInit()                                                  = 0;
