@@ -3,7 +3,7 @@
 
 #include "../headers/Server.h"
 
-struct ChatClient
+struct ConnectedChatClient
 {
     std::optional<std::string> name;
     const my::Client*          client;
@@ -12,7 +12,7 @@ struct ChatClient
 class ChatServer : public my::Server
 {
 private:
-    std::vector<ChatClient>::iterator GetClient(const my::Client& client) noexcept;
+    std::vector<ConnectedChatClient>::iterator GetClient(const my::Client& client) noexcept;
 
 private:
     void Event_OnInit() override;
@@ -21,6 +21,6 @@ private:
     void Event_OnReceive(const my::Client& client, const my::DataPacket& packet) override;
 
 private:
-    std::vector<ChatClient> m_Clients;
+    std::vector<ConnectedChatClient> m_Clients;
 };
 #endif // SERVER_CHATSERVER_H

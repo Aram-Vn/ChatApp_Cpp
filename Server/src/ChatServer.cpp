@@ -3,7 +3,7 @@
 #include <iostream>
 #include <sstream>
 
-std::vector<ChatClient>::iterator ChatServer::GetClient(const my::Client& client) noexcept
+std::vector<ConnectedChatClient>::iterator ChatServer::GetClient(const my::Client& client) noexcept
 {
     return std::find_if(m_Clients.begin(), m_Clients.end(), [&client](auto& e) { return *e.client == client; });
 }
@@ -15,7 +15,7 @@ void ChatServer::Event_OnInit()
 
 void ChatServer::Event_OnClientConnect(const my::Client& client)
 {
-    m_Clients.emplace_back(ChatClient{ .name = std::nullopt, .client = &client });
+    m_Clients.emplace_back(ConnectedChatClient{ .name = std::nullopt, .client = &client });
 
     std::cout << "[!]: Client connected from: '" << client.GetIPv4() << ":" << client.GetPort() << "'." << std::endl;
 }
