@@ -12,17 +12,17 @@ int main(const int argc, const char* argv[])
         return EXIT_FAILURE;
     }
 
-    std::string   ip = "127.0.0.1";
+    std::string   ip   = "127.0.0.1";
     std::string   nick = "no";
     std::uint16_t port = 7777;
     std::thread   chat_thread;
 
-    std::cout << "IP: ";
-    std::getline(std::cin, ip);
+    // std::cout << "IP: ";
+    // std::getline(std::cin, ip);
 
-    std::cout << "Port: ";
-    std::cin >> port;
-    std::cin.get();
+    // std::cout << "Port: ";
+    // std::cin >> port;
+    // std::cin.get();
 
     std::cout << "Nick: ";
     std::getline(std::cin, nick);
@@ -40,7 +40,8 @@ int main(const int argc, const char* argv[])
                     std::cout << ">>> ";
                     std::string str;
                     std::getline(std::cin, str);
-                    if (str.starts_with("/exit"))
+   
+                    if (str.starts_with("/exit") || feof(stdin))
                     {
                         client.Disconnect();
                     }
