@@ -50,7 +50,7 @@ namespace my {
             switch (m_Event.type)
             {
                 case ENET_EVENT_TYPE_CONNECT: {
-                    m_ConnectedClients.emplace_front(m_Event.peer);
+                    m_ConnectedClients.emplace_front(Client{m_Event.peer});
                     Event_OnClientConnect(m_ConnectedClients.front());
                     break;
                 }

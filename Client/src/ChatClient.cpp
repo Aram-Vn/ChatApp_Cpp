@@ -20,6 +20,7 @@ bool ChatClient::SendString(const std::string_view string) const noexcept
 void ChatClient::Event_OnConnect()
 {
     std::cout << "[!]: Connected to the server." << std::endl;
+    this->SendString(m_Nick);
 }
 
 void ChatClient::Event_OnDisconnect()

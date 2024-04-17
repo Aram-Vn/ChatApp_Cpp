@@ -12,9 +12,9 @@ int main(const int argc, const char* argv[])
         return EXIT_FAILURE;
     }
 
-    std::string   ip;
-    std::string   nick;
-    std::uint16_t port;
+    std::string   ip = "127.0.0.1";
+    std::string   nick = "no";
+    std::uint16_t port = 7777;
     std::thread   chat_thread;
 
     std::cout << "IP: ";
@@ -26,10 +26,6 @@ int main(const int argc, const char* argv[])
 
     std::cout << "Nick: ";
     std::getline(std::cin, nick);
-    std::cout << std::endl;
-
-    // std::cout << "Nick: ";
-    // std::getline(std::cin, nick);
     std::cout << std::endl;
 
     ChatClient client{ nick };
