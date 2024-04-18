@@ -8,8 +8,13 @@ namespace my {
     class Client
     {
     public:
-        static constexpr auto DEFAULT_CLIENT_RECEIVE_TIMEOUT = 500;
-        static constexpr auto DEFAULT_CONNECTION_TIMEOUT     = 5000;
+        static constexpr int DEFAULT_CLIENT_RECEIVE_TIMEOUT = 500;
+        static constexpr int DEFAULT_CONNECTION_TIMEOUT     = 5000;
+        static constexpr int DEFAULT_CHANNEL_ID             = 0;
+        static constexpr int DEFAULT_PEER_COUNT             = 1;
+        static constexpr int DEFAULT_PEER_CHANNEL_LIMIT     = 1;
+        static constexpr int DEFAULT_INCOMING_BAND_WIDTH      = 0; // unlimited bandwidth
+        static constexpr int DEFAULT_OUTGOING_BAND_WIDTH      = 0; // unlimited bandwidth
 
     public:
         Client();                   //

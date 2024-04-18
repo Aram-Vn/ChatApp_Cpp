@@ -50,13 +50,14 @@ namespace my {
             switch (m_Event.type)
             {
                 case ENET_EVENT_TYPE_CONNECT: {
-                    m_ConnectedClients.emplace_front(ServerClient{m_Event.peer});
+                    m_ConnectedClients.emplace_front(ServerClient{ m_Event.peer });
                     Event_OnClientConnect(m_ConnectedClients.front());
                     break;
                 }
                 case ENET_EVENT_TYPE_DISCONNECT: {
                     auto it = std::find_if(m_ConnectedClients.begin(), m_ConnectedClients.end(),
-                                           [this](auto& e) { return (ENetAddress)e == m_Event.peer->address; });
+                                           [this](const ServerClient& elem)
+                                           { return static_cast<ENetAddress>(elem) == m_Event.peer->address; });
 
                     if (it != m_ConnectedClients.end())
                     {
@@ -65,13 +66,14 @@ namespace my {
                     }
                     else
                     {
-                        throw std::runtime_error("VERY BAD!!! abort abort");
+                        throw std::runtime_error("A non-existing client is trying to disconnect!!!");
                     }
                     break;
                 }
                 case ENET_EVENT_TYPE_RECEIVE: {
                     auto it = std::find_if(m_ConnectedClients.begin(), m_ConnectedClients.end(),
-                                           [this](auto& e) { return (ENetAddress)e == m_Event.peer->address; });
+                                           [this](const ServerClient& elem)
+                                           { return static_cast<ENetAddress>(elem) == m_Event.peer->address; });
 
                     if (it != m_ConnectedClients.end())
                     {
@@ -80,7 +82,7 @@ namespace my {
                     }
                     else
                     {
-                        throw std::runtime_error("Somewhere something went wrong.");
+                        throw std::runtime_error("A non-existing client is trying to send a packet!!!.");
                     }
 
                     break;
@@ -95,7 +97,7 @@ namespace my {
         if (client.GetPeer())
         {
             ENetPacket* enet_packet = enet_packet_create(packet.buffer, packet.len, ENET_PACKET_FLAG_RELIABLE);
-            const auto  result      = enet_peer_send(client.GetPeer(), 0, enet_packet);
+            const auto  result      = enet_peer_send(client.GetPeer(), DEFAULT_CHANNEL_ID, enet_packet);
             if (result < 0)
             {
                 // Send failed, dispose the packet and return false.

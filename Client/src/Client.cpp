@@ -7,7 +7,9 @@ namespace my {
     {
         m_ServerPeer.store(nullptr);
 
-        m_Client = enet_host_create(nullptr, 1, 1, 0, 0);
+        m_Client = enet_host_create(nullptr, DEFAULT_PEER_COUNT, DEFAULT_PEER_CHANNEL_LIMIT, DEFAULT_INCOMING_BAND_WIDTH,
+                                    DEFAULT_OUTGOING_BAND_WIDTH);
+
         if (!m_Client)
         {
             throw std::runtime_error("Clould not create client host.");
@@ -121,7 +123,7 @@ namespace my {
         if (m_Client)
         {
             ENetPacket* enet_packet = enet_packet_create(packet.buffer, packet.len, ENET_PACKET_FLAG_RELIABLE);
-            const auto  result      = enet_peer_send(m_ServerPeer, 0, enet_packet);
+            const auto  result      = enet_peer_send(m_ServerPeer, DEFAULT_CHANNEL_ID, enet_packet);
             if (result < 0)
             {
                 // Send failed, dispose the packet and return false.

@@ -5,7 +5,7 @@
 
 std::vector<ChatClient>::iterator ChatServer::GetClient(const my::ServerClient& client) noexcept
 {
-    return std::find_if(m_Clients.begin(), m_Clients.end(), [&client](auto& e) { return *e.client == client; });
+    return std::find_if(m_Clients.begin(), m_Clients.end(), [&client](auto& elem) { return *elem.client == client; });
 }
 
 void ChatServer::Event_OnInit()
@@ -17,7 +17,8 @@ void ChatServer::Event_OnClientConnect(const my::ServerClient& client)
 {
     m_Clients.emplace_back(ChatClient{ .name = std::nullopt, .client = &client });
 
-    std::cout << "[!]: ServerClient connected from: '" << client.GetIPv4() << ":" << client.GetPort() << "'." << std::endl;
+    std::cout << "[!]: ServerClient connected from: '" << client.GetIPv4() << ":" << client.GetPort() << "'."
+              << std::endl;
 }
 
 void ChatServer::Event_OnClientDisconnect(const my::ServerClient& client)
@@ -44,18 +45,20 @@ void ChatServer::Event_OnReceive(const my::ServerClient& client, const my::DataP
     if (it->name)
     {
         std::stringstream ss;
-        ss << "[" << *it->name << "]: " << std::string{ (const char*)packet.buffer, packet.len } << std::endl;
+        ss << "[" << *it->name << "]: " << std::string{ reinterpret_cast<const char*>(packet.buffer), packet.len }
+           << std::endl;
 
         std::string str = ss.str();
         std::cout << str << std::endl;
 
-        auto send_packet = my::DataPacket{ .buffer = (std::uint8_t*)str.c_str(), .len = str.size() + 1 };
+        auto send_packet =
+            my::DataPacket{ .buffer = reinterpret_cast<std::uint8_t*>(str.data()), .len = str.size() + 1 };
 
-        for (const auto& e : GetConnectedClients())
+        for (const auto& elem : GetConnectedClients())
         {
-            if (e != client)
+            if (elem != client)
             {
-                this->Send(e, send_packet);
+                this->Send(elem, send_packet);
             }
         }
     }
