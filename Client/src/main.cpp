@@ -9,12 +9,21 @@
 
 #include <atomic>
 
-std::atomic<bool> disconnect = false;
+namespace Network {
+    enum class ConnectionState
+    {
+        Connected,
+        Disconnected
+    };
+
+    std::atomic<ConnectionState> connection_state = ConnectionState::Connected;
+    
+} // namespace Network
 
 void signal_handler(int signal_num)
 {
     std::cout << "\npress enter" << std::endl;
-    disconnect = true;
+    Network::connection_state = Network::ConnectionState::Disconnected;
 }
 
 int main()
@@ -39,7 +48,7 @@ int main()
     std::signal(SIGINT, signal_handler);
 
     std::cout << "\nHI : " << nick << std::endl;
-    std::cout << "You can disconnect using: /exit or Ctrl+D" << std::endl;
+    std::cout << "You can disconnect_flag using: /exit or Ctrl+D" << std::endl;
     std::cout << "Have a good day\n" << std::endl;
 
     if (client.Connect(ip, port, 5000))
@@ -49,23 +58,25 @@ int main()
             {
                 while (client.IsConnected())
                 {
-                    if (disconnect)
+                    if (Network::connection_state == Network::ConnectionState::Disconnected)
                     {
                         client.Disconnect();
-                        exit(2);
-                    }
-
-                    std::cout << ">>> ";
-                    std::string str;
-                    std::getline(std::cin, str);
-
-                    if (str.starts_with("/exit") || feof(stdin))
-                    {
-                        client.Disconnect();
+                        exit(SIGINT);
                     }
                     else
                     {
-                        client.SendString(str);
+                        std::cout << ">>> ";
+                        std::string str;
+                        std::getline(std::cin, str);
+
+                        if (str.starts_with("/exit") || feof(stdin))
+                        {
+                            client.Disconnect();
+                        }
+                        else
+                        {
+                            client.SendString(str);
+                        }
                     }
                 }
             });
