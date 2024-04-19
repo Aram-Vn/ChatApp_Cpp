@@ -9,15 +9,15 @@ namespace Network {
 
     namespace Defaults {
 
-        static constexpr int TIMEOUT    = 5000;
-        static constexpr int CHANNEL_ID = 0;
+        constexpr int TIMEOUT    = 5000;
+        constexpr int CHANNEL_ID = 0;
 
     } // namespace Defaults
 
     namespace Max {
 
-        static constexpr int CLIENT_COUNT  = 16;
-        static constexpr int CHANNEL_COUNT = 1;
+        constexpr int CLIENT_COUNT  = 16;
+        constexpr int CHANNEL_COUNT = 1;
 
     } // namespace  Max
 
@@ -27,23 +27,17 @@ namespace my {
     class Server
     {
     public:
-        // static constexpr int MAX_CLIENT_COUNT   = 16;
-        // static constexpr int MAX_CHANNEL_COUNT  = 1;
-        // static constexpr int DEFAULT_TIMEOUT    = 5000;
-        // static constexpr int DEFAULT_CHANNEL_ID = 0;
+        Server() noexcept {};
+        virtual ~Server() noexcept;
 
     public:
-        Server() noexcept {}; //
-        ~Server() noexcept;   //
-
-    public:
-        bool Init(const std::uint16_t port) noexcept; //
-        bool IsRunning() const noexcept;              //
-        void Update();                                //
+        bool Init(const std::uint16_t port) noexcept;
+        bool IsRunning() const noexcept;
+        void Update();
 
     protected:
         bool                           Send(const ServerClient& client, DataPacket& packet);
-        const std::list<ServerClient>& GetConnectedClients() const noexcept; //
+        const std::list<ServerClient>& GetConnectedClients() const noexcept;
 
     protected:
         virtual void Event_OnInit()                                                        = 0;

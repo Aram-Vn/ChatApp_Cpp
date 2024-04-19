@@ -6,7 +6,7 @@
 struct ChatClient
 {
     std::optional<std::string> name;
-    const my::ServerClient*          client;
+    const my::ServerClient*    client;
 };
 
 class ChatServer : public my::Server

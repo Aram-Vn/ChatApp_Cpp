@@ -11,6 +11,11 @@ ChatClient::ChatClient(const std::string_view nick)
 {
 }
 
+const std::string& ChatClient::Get_Nick() const 
+{
+    return m_Nick;
+}
+
 bool ChatClient::SendString(const std::string_view string) const noexcept
 {
     my::DataPacket packet{ .buffer = (std::uint8_t*)string.data(), .len = string.size() };

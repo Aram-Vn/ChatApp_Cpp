@@ -72,6 +72,11 @@ int main()
                         {
                             client.Disconnect();
                         }
+                        else if (str.starts_with("/nick"))
+                        {
+                            std::cout << "Your current nick is: ";
+                            std::cout << client.Get_Nick() << std::endl;
+                        }
                         else
                         {
                             client.SendString(str);

@@ -11,7 +11,8 @@ public:
     ~ChatClient() = default;
 
 public:
-    bool SendString(const std::string_view string) const noexcept;
+    const std::string& Get_Nick() const;
+    bool               SendString(const std::string_view string) const noexcept;
 
 protected:
     void Event_OnConnect() override;

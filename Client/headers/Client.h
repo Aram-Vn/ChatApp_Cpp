@@ -7,7 +7,7 @@
 namespace Network {
 
     namespace Defaults {
-        
+
         constexpr int CLIENT_RECEIVE_TIMEOUT = 500;
         constexpr int CONNECTION_TIMEOUT     = 5000;
         constexpr int CHANNEL_ID             = 0;
@@ -17,7 +17,7 @@ namespace Network {
         constexpr int OUTGOING_BAND_WIDTH    = 0; // unlimited bandwidth
 
     } // namespace Defaults
-     
+
 } // namespace Network
 
 namespace my {

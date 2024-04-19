@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "Packet.h"
 #include "../headers/ChatServer.h"
+#include "Packet.h"
 
 int main(const int argc, const char* argv[])
 {
