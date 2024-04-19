@@ -25,7 +25,7 @@ namespace my {
         }
     }
 
-    bool Client::Connect(const std::string_view ip, const std::uint16_t port, const std::uint16_t timeout) noexcept
+    bool Client::Connect(const std::string_view ip, const std::uint16_t port, const std::uint32_t timeout) noexcept
     {
         m_Ip                = ip;
         m_Port              = port;

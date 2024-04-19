@@ -9,15 +9,15 @@ namespace Network {
 
     namespace Defaults {
 
-        constexpr int TIMEOUT    = 5000;
-        constexpr int CHANNEL_ID = 0;
+        constexpr std::uint32_t TIMEOUT    = 5000;
+        constexpr std::uint8_t CHANNEL_ID = 0;
 
     } // namespace Defaults
 
     namespace Max {
 
-        constexpr int CLIENT_COUNT  = 16;
-        constexpr int CHANNEL_COUNT = 1;
+        constexpr std::size_t CLIENT_COUNT  = 16;
+        constexpr std::size_t CHANNEL_COUNT = 1;
 
     } // namespace  Max
 
