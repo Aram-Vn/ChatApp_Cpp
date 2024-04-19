@@ -5,14 +5,32 @@
 
 #include "ServerClient.h"
 
+namespace Network {
+
+    namespace Defaults {
+
+        static constexpr int TIMEOUT    = 5000;
+        static constexpr int CHANNEL_ID = 0;
+
+    } // namespace Defaults
+
+    namespace Max {
+
+        static constexpr int CLIENT_COUNT  = 16;
+        static constexpr int CHANNEL_COUNT = 1;
+
+    } // namespace  Max
+
+} // namespace Network
+
 namespace my {
     class Server
     {
     public:
-        static constexpr auto MAX_CLIENT_COUNT   = 16;
-        static constexpr auto MAX_CHANNEL_COUNT  = 1;
-        static constexpr auto DEFAULT_TIMEOUT    = 5000;
-        static constexpr auto DEFAULT_CHANNEL_ID = 0;
+        // static constexpr int MAX_CLIENT_COUNT   = 16;
+        // static constexpr int MAX_CHANNEL_COUNT  = 1;
+        // static constexpr int DEFAULT_TIMEOUT    = 5000;
+        // static constexpr int DEFAULT_CHANNEL_ID = 0;
 
     public:
         Server() noexcept {}; //

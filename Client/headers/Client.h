@@ -4,18 +4,25 @@
 #include <Common.h>
 #include <Packet.h>
 
+namespace Network {
+
+    namespace Defaults {
+        
+        constexpr int CLIENT_RECEIVE_TIMEOUT = 500;
+        constexpr int CONNECTION_TIMEOUT     = 5000;
+        constexpr int CHANNEL_ID             = 0;
+        constexpr int PEER_COUNT             = 1;
+        constexpr int PEER_CHANNEL_LIMIT     = 1;
+        constexpr int INCOMING_BAND_WIDTH    = 0; // unlimited bandwidth
+        constexpr int OUTGOING_BAND_WIDTH    = 0; // unlimited bandwidth
+
+    } // namespace Defaults
+     
+} // namespace Network
+
 namespace my {
     class Client
     {
-    public:
-        static constexpr int DEFAULT_CLIENT_RECEIVE_TIMEOUT = 500;
-        static constexpr int DEFAULT_CONNECTION_TIMEOUT     = 5000;
-        static constexpr int DEFAULT_CHANNEL_ID             = 0;
-        static constexpr int DEFAULT_PEER_COUNT             = 1;
-        static constexpr int DEFAULT_PEER_CHANNEL_LIMIT     = 1;
-        static constexpr int DEFAULT_INCOMING_BAND_WIDTH      = 0; // unlimited bandwidth
-        static constexpr int DEFAULT_OUTGOING_BAND_WIDTH      = 0; // unlimited bandwidth
-
     public:
         Client();                   //
         virtual ~Client() noexcept; //
@@ -25,7 +32,7 @@ namespace my {
 
     public:
         bool Connect(const std::string_view ip, const std::uint16_t port,
-                     const std::uint16_t timeout = DEFAULT_CLIENT_RECEIVE_TIMEOUT) noexcept; //
+                     const std::uint16_t timeout = Network::Defaults::CLIENT_RECEIVE_TIMEOUT) noexcept; //
         void Disconnect() noexcept;
         void Update();
         bool Send(DataPacket& packet) const noexcept;
@@ -40,7 +47,7 @@ namespace my {
         std::atomic<ENetPeer*> m_ServerPeer;
         std::string            m_Ip;
         std::uint16_t          m_Port;
-        std::uint16_t          m_ConnectionTimeout = DEFAULT_CONNECTION_TIMEOUT;
+        std::uint16_t          m_ConnectionTimeout = Network::Defaults::CONNECTION_TIMEOUT;
     };
 } // namespace my
 

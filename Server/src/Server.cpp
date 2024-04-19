@@ -33,7 +33,7 @@ namespace my {
         m_EndPoint.host = ENET_HOST_ANY;
         m_EndPoint.port = port;
 
-        m_Host = enet_host_create(&m_EndPoint, Server::MAX_CLIENT_COUNT, Server::MAX_CHANNEL_COUNT, 0, 0);
+        m_Host = enet_host_create(&m_EndPoint, Network::Max::CLIENT_COUNT, Network::Max::CHANNEL_COUNT, 0, 0);
         if (m_Host)
         {
             m_Running = true;
@@ -45,7 +45,7 @@ namespace my {
 
     void Server::Update()
     {
-        while (enet_host_service(m_Host, &m_Event, Server::DEFAULT_TIMEOUT))
+        while (enet_host_service(m_Host, &m_Event, Network::Defaults::TIMEOUT))
         {
             switch (m_Event.type)
             {
@@ -97,7 +97,7 @@ namespace my {
         if (client.GetPeer())
         {
             ENetPacket* enet_packet = enet_packet_create(packet.buffer, packet.len, ENET_PACKET_FLAG_RELIABLE);
-            const auto  result      = enet_peer_send(client.GetPeer(), DEFAULT_CHANNEL_ID, enet_packet);
+            const auto  result      = enet_peer_send(client.GetPeer(), Network::Defaults::CHANNEL_ID, enet_packet);
             if (result < 0)
             {
                 // Send failed, dispose the packet and return false.

@@ -17,7 +17,6 @@ namespace Network {
     };
 
     std::atomic<ConnectionState> connection_state = ConnectionState::Connected;
-    
 } // namespace Network
 
 void signal_handler(int signal_num)

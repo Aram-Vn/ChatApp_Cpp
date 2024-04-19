@@ -7,8 +7,8 @@ namespace my {
     {
         m_ServerPeer.store(nullptr);
 
-        m_Client = enet_host_create(nullptr, DEFAULT_PEER_COUNT, DEFAULT_PEER_CHANNEL_LIMIT, DEFAULT_INCOMING_BAND_WIDTH,
-                                    DEFAULT_OUTGOING_BAND_WIDTH);
+        m_Client = enet_host_create(nullptr, Network::Defaults::PEER_COUNT, Network::Defaults::PEER_CHANNEL_LIMIT,
+                                    Network::Defaults::INCOMING_BAND_WIDTH, Network::Defaults::OUTGOING_BAND_WIDTH);
 
         if (!m_Client)
         {
@@ -93,7 +93,7 @@ namespace my {
         if (m_Client)
         {
             ENetEvent event;
-            while (enet_host_service(m_Client, &event, Client::DEFAULT_CLIENT_RECEIVE_TIMEOUT) > 0)
+            while (enet_host_service(m_Client, &event, Network::Defaults::CLIENT_RECEIVE_TIMEOUT) > 0)
             {
                 switch (event.type)
                 {
@@ -123,7 +123,7 @@ namespace my {
         if (m_Client)
         {
             ENetPacket* enet_packet = enet_packet_create(packet.buffer, packet.len, ENET_PACKET_FLAG_RELIABLE);
-            const auto  result      = enet_peer_send(m_ServerPeer, DEFAULT_CHANNEL_ID, enet_packet);
+            const auto  result      = enet_peer_send(m_ServerPeer, Network::Defaults::CHANNEL_ID, enet_packet);
             if (result < 0)
             {
                 // Send failed, dispose the packet and return false.
