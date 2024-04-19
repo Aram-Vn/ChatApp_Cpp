@@ -1,11 +1,10 @@
+#include "../headers/ChatClient.h"
 #include <chrono>
 #include <csignal>
 #include <cstdlib>
 #include <iostream>
 #include <string>
 #include <thread>
-
-#include "../headers/ChatClient.h"
 
 #include <atomic>
 
@@ -21,7 +20,7 @@ namespace Network {
 
 void signal_handler(int signal_num)
 {
-    std::cout << "\npress enter" << std::endl;
+    std::cout << "\nPlese press enter" << std::endl;
     Network::connection_state = Network::ConnectionState::Disconnected;
 }
 
@@ -46,9 +45,11 @@ int main()
 
     std::signal(SIGINT, signal_handler);
 
-    std::cout << "\nHI : " << nick << std::endl;
-    std::cout << "You can disconnect_flag using: /exit or Ctrl+D" << std::endl;
-    std::cout << "Have a good day\n" << std::endl;
+    std::cout << "\nHI: " << nick << std::endl;
+    std::cout << "You can disconnect using: /exit or Ctrl+D" << std::endl;
+    std::cout << "You can see your current nick by typing /nick" << std::endl;
+    std::cout << "To clear the screen, use /cl" << std::endl;
+    std::cout << "Have a good day!!!" << std::endl;
 
     if (client.Connect(ip, port, 5000))
     {
@@ -77,6 +78,10 @@ int main()
                             std::cout << "Your current nick is: ";
                             std::cout << client.Get_Nick() << std::endl;
                         }
+                        else if (str.starts_with("/cl")) 
+                        {
+                            system("clear");
+                        }
                         else
                         {
                             client.SendString(str);
@@ -100,6 +105,7 @@ int main()
     {
         chat_thread.join();
     }
+
     enet_deinitialize();
     return 0;
 }

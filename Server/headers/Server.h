@@ -10,7 +10,7 @@ namespace Network {
     namespace Defaults {
 
         constexpr std::uint32_t TIMEOUT    = 5000;
-        constexpr std::uint8_t CHANNEL_ID = 0;
+        constexpr std::uint8_t  CHANNEL_ID = 0;
 
     } // namespace Defaults
 

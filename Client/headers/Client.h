@@ -24,15 +24,15 @@ namespace my {
     class Client
     {
     public:
-        Client();                   //
-        virtual ~Client() noexcept; //
+        Client();
+        virtual ~Client() noexcept;
 
     public:
         bool IsConnected() const noexcept;
 
     public:
         bool Connect(const std::string_view ip, const std::uint16_t port,
-                     const std::uint32_t timeout = Network::Defaults::CLIENT_RECEIVE_TIMEOUT) noexcept; //
+                     const std::uint32_t timeout = Network::Defaults::CLIENT_RECEIVE_TIMEOUT) noexcept;
         void Disconnect() noexcept;
         void Update();
         bool Send(DataPacket& packet) const noexcept;

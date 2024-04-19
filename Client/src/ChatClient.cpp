@@ -2,16 +2,14 @@
 #include <iostream>
 #include <string>
 
-ChatClient::ChatClient() 
-{
-}
+ChatClient::ChatClient() {}
 
 ChatClient::ChatClient(const std::string_view nick)
     : m_Nick(nick)
 {
 }
 
-const std::string& ChatClient::Get_Nick() const 
+const std::string& ChatClient::Get_Nick() const
 {
     return m_Nick;
 }
