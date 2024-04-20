@@ -16,6 +16,9 @@ const std::string& ChatClient::Get_Nick() const
 
 bool ChatClient::SendString(const std::string_view string) const noexcept
 {
+    // const std::uint8_t* data = reinterpret_cast<const std::uint8_t*>(string.data());
+    // my::DataPacket packet{ .buffer = data, .len = string.size() };
+
     my::DataPacket packet{ .buffer = (std::uint8_t*)string.data(), .len = string.size() };
     return this->Send(packet);
 }
@@ -33,5 +36,6 @@ void ChatClient::Event_OnDisconnect()
 
 void ChatClient::Event_OnReceive(const my::DataPacket& data)
 {
-    std::cout << std::endl << std::string((char*)data.buffer, data.len) << std::endl;
+    const char* buffer = reinterpret_cast<const char*>(data.buffer);
+    std::cout << std::endl << std::string(buffer, data.len) << std::endl;
 }

@@ -37,13 +37,20 @@ int main()
     std::uint16_t port = 7777;
     std::thread   chat_thread;
 
-    std::cout << "IP: ";
-    std::getline(std::cin, ip);
+    std::string ip_choice;
+    std::cout << "Do you want to set the IP and port manually? (y/Y): ";
+    std::getline(std::cin, ip_choice);
 
-    std::cout << "Port: ";
-    std::cin >> port;
-    std::cin.get();
+    if (ip_choice == "y" || ip_choice == "y")
+    {
+        std::cout << "IP: ";
+        std::getline(std::cin, ip);
 
+        std::cout << "Port: ";
+        std::cin >> port;
+        std::cin.get();
+    }
+    
     std::cout << "Nick: ";
     std::getline(std::cin, nick);
     std::cout << std::endl;
@@ -76,33 +83,22 @@ int main()
                         std::string str;
                         std::getline(std::cin, str);
 
-                        if (str.empty())
-                        {
-                            continue;
-                        }
-
                         if (str.starts_with("/exit") || feof(stdin))
                         {
                             client.Disconnect();
-                            break;
+                        }
+                        else if (str.starts_with("/nick"))
+                        {
+                            std::cout << "Your current nick is: ";
+                            std::cout << client.Get_Nick() << std::endl;
+                        }
+                        else if (str.starts_with("/cl"))
+                        {
+                            system("clear");
                         }
                         else
                         {
-                            switch (str[0])
-                            {
-                                case '/':
-                                    if (str.starts_with("/nick"))
-                                    {
-                                        std::cout << "Your current nick is: ";
-                                        std::cout << client.Get_Nick() << std::endl;
-                                    }
-                                    else if (str.starts_with("/cl"))
-                                    {
-                                        system("clear");
-                                    }
-                                    break;
-                                default: client.SendString(str); break;
-                            }
+                            client.SendString(str);
                         }
                     }
                 }

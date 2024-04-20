@@ -33,7 +33,8 @@ namespace my {
         m_EndPoint.host = ENET_HOST_ANY;
         m_EndPoint.port = port;
 
-        m_Host = enet_host_create(&m_EndPoint, Network::Max::CLIENT_COUNT, Network::Max::CHANNEL_COUNT, 0, 0);
+        m_Host = enet_host_create(&m_EndPoint, Network::Max::CLIENT_COUNT, Network::Max::CHANNEL_COUNT,
+                                  Network::Defaults::INCOMING_BAND_WIDTH, Network::Defaults::OUTGOING_BAND_WIDTH);
         if (m_Host)
         {
             m_Running = true;

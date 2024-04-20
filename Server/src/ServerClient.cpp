@@ -1,4 +1,5 @@
 #include "../headers/ServerClient.h"
+#include <cstddef>
 
 namespace my {
     ServerClient::ServerClient(ENetPeer* peer) noexcept
@@ -9,7 +10,7 @@ namespace my {
 
     std::string ServerClient::GetIPv4() const noexcept
     {
-        const auto              size   = 128;
+        const std::size_t       size   = 128;
         std::unique_ptr<char[]> buffer = std::make_unique<char[]>(size);
         enet_address_get_host_ip(&m_Address, buffer.get(), size);
         return std::string(buffer.get());

@@ -9,8 +9,10 @@ namespace Network {
 
     namespace Defaults {
 
-        constexpr std::uint32_t TIMEOUT    = 5000;
-        constexpr std::uint8_t  CHANNEL_ID = 0;
+        constexpr std::uint32_t TIMEOUT             = 5000;
+        constexpr std::uint8_t  CHANNEL_ID          = 0;
+        constexpr std::uint32_t INCOMING_BAND_WIDTH = 0; // unlimited bandwidth
+        constexpr std::uint32_t OUTGOING_BAND_WIDTH = 0; // unlimited bandwidth
 
     } // namespace Defaults
 
