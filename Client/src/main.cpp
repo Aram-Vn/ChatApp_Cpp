@@ -38,8 +38,12 @@ int main()
     std::thread   chat_thread;
 
     std::string ip_choice;
-    std::cout << "Do you want to set the IP and port manually? (y/Y): ";
+    std::cout << "Do you want to set the IP and port manually?" << std::endl;
+    std::cout << "defoult is: 127.0.0.1/7777" << std::endl;
+    std::cout << "(y/Y): ";
+
     std::getline(std::cin, ip_choice);
+    std::cout << '\n';
 
     if (ip_choice == "y" || ip_choice == "y")
     {
@@ -50,7 +54,7 @@ int main()
         std::cin >> port;
         std::cin.get();
     }
-    
+
     std::cout << "Nick: ";
     std::getline(std::cin, nick);
     std::cout << std::endl;
