@@ -13,7 +13,7 @@ namespace Network {
     {
         Connected,
         Disconnected
-    };
+    }; // enum class ConnectionState
 
     std::atomic<ConnectionState> connection_state = ConnectionState::Connected;
 } // namespace Network
@@ -36,6 +36,13 @@ int main()
     std::string   nick = "no";
     std::uint16_t port = 7777;
     std::thread   chat_thread;
+
+    std::cout << "IP: ";
+    std::getline(std::cin, ip);
+
+    std::cout << "Port: ";
+    std::cin >> port;
+    std::cin.get();
 
     std::cout << "Nick: ";
     std::getline(std::cin, nick);
@@ -69,22 +76,33 @@ int main()
                         std::string str;
                         std::getline(std::cin, str);
 
+                        if (str.empty())
+                        {
+                            continue;
+                        }
+
                         if (str.starts_with("/exit") || feof(stdin))
                         {
                             client.Disconnect();
-                        }
-                        else if (str.starts_with("/nick"))
-                        {
-                            std::cout << "Your current nick is: ";
-                            std::cout << client.Get_Nick() << std::endl;
-                        }
-                        else if (str.starts_with("/cl")) 
-                        {
-                            system("clear");
+                            break;
                         }
                         else
                         {
-                            client.SendString(str);
+                            switch (str[0])
+                            {
+                                case '/':
+                                    if (str.starts_with("/nick"))
+                                    {
+                                        std::cout << "Your current nick is: ";
+                                        std::cout << client.Get_Nick() << std::endl;
+                                    }
+                                    else if (str.starts_with("/cl"))
+                                    {
+                                        system("clear");
+                                    }
+                                    break;
+                                default: client.SendString(str); break;
+                            }
                         }
                     }
                 }
