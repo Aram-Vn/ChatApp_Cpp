@@ -39,3 +39,12 @@ void ChatClient::Event_OnReceive(const my::DataPacket& data)
     const char* buffer = reinterpret_cast<const char*>(data.buffer);
     std::cout << std::endl << std::string(buffer, data.len) << std::endl;
 }
+
+void ChatClient::Greeting() const noexcept 
+{
+    std::cout << "\nHI: " << m_Nick << std::endl;
+    std::cout << "You can disconnect using: /exit or Ctrl+D" << std::endl;
+    std::cout << "You can see your current nick by typing /nick" << std::endl;
+    std::cout << "To clear the screen, use /cl" << std::endl;
+    std::cout << "Have a good day!!!" << std::endl;
+}

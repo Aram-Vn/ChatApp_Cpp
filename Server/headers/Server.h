@@ -1,11 +1,12 @@
-#pragma once
+#ifndef CHATAPP_CPP_SERVER_HEADERS_SERVER_H
+#define CHATAPP_CPP_SERVER_HEADERS_SERVER_H
 
 #include <Common.h>
 #include <Packet.h>
 
 #include "ServerClient.h"
 
-namespace Network {
+    namespace Network {
 
     namespace Defaults {
 
@@ -55,3 +56,5 @@ namespace my {
         bool                    m_Running = false;
     };
 } // namespace my
+
+#endif // CHATAPP_CPP_SERVER_HEADERS_SERVER_H

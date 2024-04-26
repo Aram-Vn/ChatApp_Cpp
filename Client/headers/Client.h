@@ -1,10 +1,10 @@
-#ifndef CLIENT_H
-#define CLIENT_H
+#ifndef CHATAPP_CPP_CLIENT_HEADERS_CLIENT_H
+#define CHATAPP_CPP_CLIENT_HEADERS_CLIENT_H
 
 #include <Common.h>
 #include <Packet.h>
 
-namespace Network {
+    namespace Network {
 
     namespace Defaults {
 
@@ -51,4 +51,4 @@ namespace my {
     };
 } // namespace my
 
-#endif // CLIENT_H
+#endif // CHATAPP_CPP_CLIENT_HEADERS_CLIENT_H

@@ -1,9 +1,8 @@
-#ifndef INCLUDE_PACKET_H
-#define INCLUDE_PACKET_H
-
+#ifndef CHATAPP_CPP_INCLUDE_PACKET_H
+#define CHATAPP_CPP_INCLUDE_PACKET_H
 #include "Common.h"
 
-namespace my {
+    namespace my {
     struct DataPacket
     {
         std::uint8_t* buffer;
@@ -11,4 +10,4 @@ namespace my {
     };
 } // namespace my
 
-#endif // INCLUDE_PACKET_H
+#endif // CHATAPP_CPP_INCLUDE_PACKET_H

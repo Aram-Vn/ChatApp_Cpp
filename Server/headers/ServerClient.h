@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CHATAPP_CPP_SERVER_HEADERS_SERVERCLIENT_H
+#define CHATAPP_CPP_SERVER_HEADERS_SERVERCLIENT_H
 
 #include "enet/enet.h"
 #include <Common.h>
@@ -25,3 +26,5 @@ namespace my {
         ENetPeer*   m_Peer = nullptr;
     };
 } // namespace my
+
+#endif // CHATAPP_CPP_SERVER_HEADERS_SERVERCLIENT_H

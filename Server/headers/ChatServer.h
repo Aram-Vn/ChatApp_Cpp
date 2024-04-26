@@ -1,9 +1,9 @@
-#ifndef SERVER_CHATSERVER_H
-#define SERVER_CHATSERVER_H
+#ifndef CHATAPP_CPP_SERVER_HEADERS_CHATSERVER_H
+#define CHATAPP_CPP_SERVER_HEADERS_CHATSERVER_H
 
 #include "Server.h"
 
-struct ChatClient
+    struct ChatClient
 {
     std::optional<std::string> name;
     const my::ServerClient*    client;
@@ -23,4 +23,4 @@ private:
 private:
     std::vector<ChatClient> m_Clients;
 };
-#endif // SERVER_CHATSERVER_H
+#endif // CHATAPP_CPP_SERVER_HEADERS_CHATSERVER_H

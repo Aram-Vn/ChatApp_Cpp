@@ -1,4 +1,5 @@
-#pragma once
+#ifndef  CHATAPP_CPP_INCLUDE_COMMON_H
+#define CHATAPP_CPP_INCLUDE_COMMON_H
 
 #include <chrono>
 #include <cstddef>
@@ -18,3 +19,5 @@
 namespace my {
     constexpr auto DEFAULT_CHANNEL_COUNT = 1;
 }
+
+#endif // CHATAPP_CPP_INCLUDE_COMMON_H

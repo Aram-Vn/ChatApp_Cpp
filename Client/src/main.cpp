@@ -63,11 +63,7 @@ int main()
 
     std::signal(SIGINT, signal_handler);
 
-    std::cout << "\nHI: " << nick << std::endl;
-    std::cout << "You can disconnect using: /exit or Ctrl+D" << std::endl;
-    std::cout << "You can see your current nick by typing /nick" << std::endl;
-    std::cout << "To clear the screen, use /cl" << std::endl;
-    std::cout << "Have a good day!!!" << std::endl;
+    client.Greeting();
 
     if (client.Connect(ip, port, 5000))
     {
@@ -87,22 +83,33 @@ int main()
                         std::string str;
                         std::getline(std::cin, str);
 
-                        if (str.starts_with("/exit") || feof(stdin))
+                        if (feof(stdin))
                         {
                             client.Disconnect();
-                        }
-                        else if (str.starts_with("/nick"))
-                        {
-                            std::cout << "Your current nick is: ";
-                            std::cout << client.Get_Nick() << std::endl;
-                        }
-                        else if (str.starts_with("/cl"))
-                        {
-                            system("clear");
+                            break;
                         }
                         else
                         {
-                            client.SendString(str);
+                            if (!str.empty() && str[0] == '/')
+                            {
+                                if (str.starts_with("/exit") || feof(stdin))
+                                {
+                                    client.Disconnect();
+                                }
+                                else if (str.starts_with("/nick"))
+                                {
+                                    std::cout << "Your current nick is: ";
+                                    std::cout << client.Get_Nick() << std::endl;
+                                }
+                                else if (str.starts_with("/cl"))
+                                {
+                                    system("clear");
+                                }
+                            }
+                            else
+                            {
+                                client.SendString(str);
+                            }
                         }
                     }
                 }
