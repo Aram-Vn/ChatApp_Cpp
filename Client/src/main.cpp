@@ -90,25 +90,32 @@ int main()
                         }
                         else
                         {
-                            if (!str.empty() && str[0] == '/')
+                            if (!str.empty())
                             {
-                                if (str.starts_with("/exit") || feof(stdin))
+                                if (str[0] == '/')
                                 {
-                                    client.Disconnect();
+                                    if (str.starts_with("/exit") || feof(stdin))
+                                    {
+                                        client.Disconnect();
+                                    }
+                                    else if (str.starts_with("/nick"))
+                                    {
+                                        std::cout << "Your current nick is: ";
+                                        std::cout << client.Get_Nick() << std::endl;
+                                    }
+                                    else if (str.starts_with("/cl"))
+                                    {
+                                        system("clear");
+                                    }
+                                    else
+                                    {
+                                        client.SendString(str);
+                                    }
                                 }
-                                else if (str.starts_with("/nick"))
+                                else
                                 {
-                                    std::cout << "Your current nick is: ";
-                                    std::cout << client.Get_Nick() << std::endl;
+                                    client.SendString(str);
                                 }
-                                else if (str.starts_with("/cl"))
-                                {
-                                    system("clear");
-                                }
-                            }
-                            else
-                            {
-                                client.SendString(str);
                             }
                         }
                     }
