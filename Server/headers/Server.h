@@ -1,12 +1,14 @@
 #ifndef CHATAPP_CPP_SERVER_HEADERS_SERVER_H
 #define CHATAPP_CPP_SERVER_HEADERS_SERVER_H
 
+#include "ServerClient.h"
 #include <Common.h>
 #include <Packet.h>
+#include <boost/functional/hash.hpp>
+#include <functional>
+#include <unordered_map>
 
-#include "ServerClient.h"
-
-    namespace Network {
+namespace Network {
 
     namespace Defaults {
 
@@ -26,7 +28,24 @@
 
 } // namespace Network
 
+template <>
+struct std::hash<ENetAddress>
+{
+    std::size_t operator()(const ENetAddress& s) const noexcept
+    {
+        std::size_t h1 = std::hash<std::uint32_t>{}(s.host);
+        std::size_t h2 = std::hash<std::uint16_t>{}(s.port);
+        std::size_t seed = 0;
+        boost::hash_combine(seed, h1);
+        boost::hash_combine(seed, h2);
+        return seed;
+    }
+};
+
+bool operator==(const ENetAddress& lhv, const ENetAddress& rhv) noexcept;
+
 namespace my {
+
     class Server
     {
     public:
@@ -39,8 +58,8 @@ namespace my {
         void Update();
 
     protected:
-        bool                           Send(const ServerClient& client, DataPacket& packet);
-        const std::list<ServerClient>& GetConnectedClients() const noexcept;
+        bool                                                 Send(const ServerClient& client, DataPacket& packet);
+        const std::unordered_map<ENetAddress, ServerClient>& GetConnectedClients() const noexcept;
 
     protected:
         virtual void Event_OnInit()                                                        = 0;
@@ -49,11 +68,11 @@ namespace my {
         virtual void Event_OnReceive(const ServerClient& client, const DataPacket& packet) = 0;
 
     private:
-        ENetHost*               m_Host = nullptr;
-        ENetAddress             m_EndPoint;
-        ENetEvent               m_Event;
-        std::list<ServerClient> m_ConnectedClients;
-        bool                    m_Running = false;
+        ENetHost*                                     m_Host = nullptr;
+        ENetAddress                                   m_EndPoint;
+        ENetEvent                                     m_Event;
+        std::unordered_map<ENetAddress, ServerClient> m_ConnectedClients;
+        bool                                          m_Running = false;
     };
 } // namespace my
 

@@ -3,18 +3,18 @@
 #include "enet/enet.h"
 #include <stdexcept>
 
-namespace my {
-    static bool operator==(const ENetAddress& lhv, const ENetAddress& rhv) noexcept
-    {
-        return lhv.host == rhv.host && lhv.port == rhv.port;
-    }
+bool operator==(const ENetAddress& lhv, const ENetAddress& rhv) noexcept
+{
+    return lhv.host == rhv.host && lhv.port == rhv.port;
+}
 
+namespace my {
     bool Server::IsRunning() const noexcept
     {
         return m_Running;
     }
 
-    const std::list<ServerClient>& Server::GetConnectedClients() const noexcept
+    const std::unordered_map<ENetAddress, ServerClient>& Server::GetConnectedClients() const noexcept
     {
         return m_ConnectedClients;
     }
@@ -51,19 +51,17 @@ namespace my {
             switch (m_Event.type)
             {
                 case ENET_EVENT_TYPE_CONNECT: {
-                    m_ConnectedClients.emplace_front(ServerClient{ m_Event.peer });
-                    Event_OnClientConnect(m_ConnectedClients.front());
+                    
+                    m_ConnectedClients.insert({ m_Event.peer->address, ServerClient{ m_Event.peer } });
+                    Event_OnClientConnect(m_ConnectedClients[m_Event.peer->address]);
                     break;
                 }
                 case ENET_EVENT_TYPE_DISCONNECT: {
-                    auto it = std::find_if(m_ConnectedClients.begin(), m_ConnectedClients.end(),
-                                           [this](const ServerClient& elem)
-                                           { return static_cast<ENetAddress>(elem) == m_Event.peer->address; });
 
-                    if (it != m_ConnectedClients.end())
+                    if (m_ConnectedClients.contains(m_Event.peer->address))
                     {
-                        Event_OnClientDisconnect(*it);
-                        m_ConnectedClients.erase(it);
+                        Event_OnClientDisconnect(m_ConnectedClients[m_Event.peer->address]);
+                        m_ConnectedClients.erase(m_Event.peer->address);
                     }
                     else
                     {
@@ -72,14 +70,12 @@ namespace my {
                     break;
                 }
                 case ENET_EVENT_TYPE_RECEIVE: {
-                    auto it = std::find_if(m_ConnectedClients.begin(), m_ConnectedClients.end(),
-                                           [this](const ServerClient& elem)
-                                           { return static_cast<ENetAddress>(elem) == m_Event.peer->address; });
 
-                    if (it != m_ConnectedClients.end())
+                    if (m_ConnectedClients.contains(m_Event.peer->address))
                     {
                         Event_OnReceive(
-                            *it, DataPacket{ .buffer = m_Event.packet->data, .len = m_Event.packet->dataLength });
+                            m_ConnectedClients[m_Event.peer->address],
+                            DataPacket{ .buffer = m_Event.packet->data, .len = m_Event.packet->dataLength });
                     }
                     else
                     {

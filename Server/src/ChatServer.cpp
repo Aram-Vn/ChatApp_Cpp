@@ -56,9 +56,9 @@ void ChatServer::Event_OnReceive(const my::ServerClient& client, const my::DataP
 
         for (const auto& elem : GetConnectedClients())
         {
-            if (elem != client)
+            if (elem.second != client)
             {
-                this->Send(elem, send_packet);
+                this->Send(elem.second, send_packet);
             }
         }
     }

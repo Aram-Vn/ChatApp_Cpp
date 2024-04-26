@@ -9,6 +9,7 @@ namespace my {
     class ServerClient
     {
     public:
+        ServerClient() {};
         explicit ServerClient(ENetPeer* peer) noexcept;
 
     public:
